@@ -1,9 +1,11 @@
 package hu.gamemasters.fishing;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
+import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class GamStage extends MyStage {
 
@@ -21,6 +24,7 @@ public class GamStage extends MyStage {
     public OneSpriteStaticActor fishingRodEndActor;
     public float degree = 45;
     public float v = 100;
+    public MyLabel vLabel;
 
     public void generateFlying(){
         ArrayList<Actor> actors = new ArrayList<Actor>();
@@ -55,6 +59,7 @@ public class GamStage extends MyStage {
                 v = widthToSpeed(x);
                 // System.out.println(widthToSpeed(x) + " " + degree);
                 fishingRodEndActor.setPosition(getFishingRodEnd().x, getFishingRodEnd().y);
+                vLabel.setText("" + (int)degree + "°");
                 generateFlying();
                 super.touchDragged(event, x, y, pointer);
             }
@@ -65,6 +70,7 @@ public class GamStage extends MyStage {
                 addActor(new FishFoodActor(game, new Ballistics2(v, MathUtils.degreesToRadians * degree, getFishingRodEnd().x, getFishingRodEnd().y), 10));
             }
         });
+        addActor(vLabel = new MyLabel(game, "ASD", new Label.LabelStyle(game.getMyAssetManager().getFont("arial.ttf"), null)));
         addActor(new TesztActor(game, fisherMan.x, fisherMan.y));
         addActor(new TesztActor(game, fishingRod.x, fishingRod.y));
         addActor(fishingRodEndActor = new TesztActor(game, getFishingRodEnd().x, getFishingRodEnd().y));
