@@ -53,15 +53,16 @@ public class GamStage extends MyStage {
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 degree = heightToDegree(y);
                 v = widthToSpeed(x);
-                System.out.println(widthToSpeed(x) + " " + degree);
+                // System.out.println(widthToSpeed(x) + " " + degree);
                 fishingRodEndActor.setPosition(getFishingRodEnd().x, getFishingRodEnd().y);
                 generateFlying();
                 super.touchDragged(event, x, y, pointer);
             }
 
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return super.touchDown(event, x, y, pointer, button);
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                addActor(new FishFoodActor(game, new Ballistics2(v, MathUtils.degreesToRadians * degree, getFishingRodEnd().x, getFishingRodEnd().y), 10));
             }
         });
         addActor(new TesztActor(game, fisherMan.x, fisherMan.y));
@@ -70,13 +71,13 @@ public class GamStage extends MyStage {
     }
 
     public float widthToSpeed(float x) {
-        float d = x / getViewport().getWorldWidth() * 60;
-        return d < 0 ? 0 : d > 60 ? 60 : d;
+        float d = x / getViewport().getWorldWidth() * 100;
+        return d < 0 ? 0 : d > 100 ? 100 : d;
     }
 
     public float heightToDegree(float y){
         float d = y / getViewport().getWorldHeight() * 90;
-        return d < 0 ? 0 : d > 90 ? 90 : d;
+        return d < 0 ? 0 : d > 85 ? 85 : d;
     }
 
 }
