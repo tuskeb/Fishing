@@ -8,7 +8,7 @@ public class GameScreen extends MyScreen {
 
     public GameScreen(MyGame game) {
         super(game);
-        //setBackGroundColor(1,1,1);
+        setBackGroundColor(0,100, 255);
         addStage(new GamStage(game), 1, true);
     }
 
